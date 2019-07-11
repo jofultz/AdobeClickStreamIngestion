@@ -76,7 +76,7 @@ To understand how the schedule and concurrency work, please consider the followi
 
 In this configuration the total run time for each batch of 3 readers is 4 minutes.  With a GapInterval of 60 seconds each reader starts in the middle of the 120 second runtime of the previously started reader, but there are only ever 2 concurrent readers retrieving data.
 
-While one may overlapp the end of a batch with the beginning of the next batch, care must be taken to not overlap the timer schedule with the ExecutionSeconds to the degree that would cause either:
+While one may overlapp the end of a batch with the beginning of the next batch, care must be taken to not overlap the timer schedule with the ExecutionSeconds to the degree that would potentially cause:
 1. more than 8 readers to run concurrently as Adobe's max is 8
 2. spawn readers infinitely as the duration and gap interval does not allow for completion of the readers prior completing half of the next batch of readers.
 
