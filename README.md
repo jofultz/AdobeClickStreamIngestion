@@ -54,3 +54,11 @@ The run-time behavior of both Functions is determined by the following settings 
 |GapIntervalSeconds| *seconds visibility delay*| This controls the number of seconds before each subsequent message on the queue is visible.  The interval is multiplied by the message number with index origin of 0.|
 
 ## Operational Notes
+### High-Level Flow
+Overall, this is a fairly simple solution as can be seen in the following depiction:
+
+![highlevelflow](https://raw.githubusercontent.com/jofultz/AdobeClickStreamIngestion/master/images/HighLevelFlow.png)
+`Figure 01: High-Level Flow with Settings Dependencies`
+
+When the timer trigger fires the ClickStreamController places the configured number of messages on the queue based on the application settings.  As each message becomes visible it trggers the GetClickStreamData Function.  GetClickStreamData will retrieve needed secrets from the app settings (KeyVault if configured), retrieve an authorization token, and begin to retrieve data from the data endpoint for the configured amount of time.  Each record received is added to an ICollector<EventHub> and at the expiry for the run duration that data is persisted to EventHub by the Binder.
+ 
