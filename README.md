@@ -66,10 +66,10 @@ Scheduling and concurrency are managed by adjusting 4 settings: **TimerSchedule*
 
 To understand how the schedule and concurrency work, please consider the following timeline for the settings of:
 
-TimerSchedule = 0 \*/4 \* \* \* \*     (4 minutes)
-ExecutionSeconds = 120
-MaxReaders = 3
-GapIntervalSeconds = 60
+* TimerSchedule = 0 \*/4 \* \* \* \*     (4 minutes)
+* ExecutionSeconds = 120
+* MaxReaders = 3
+* GapIntervalSeconds = 60
 
 ![scheduling](https://raw.githubusercontent.com/jofultz/AdobeClickStreamIngestion/master/images/schedulingconcurrencytimeline.png)
 `Figure 02:Scheduling and Concurrency`
