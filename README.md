@@ -74,7 +74,7 @@ To understand how the schedule and concurrency work, please consider the followi
 ![scheduling](https://raw.githubusercontent.com/jofultz/AdobeClickStreamIngestion/master/images/schedulingconcurrencytimeline.png)
 `Figure 02:Scheduling and Concurrency`
 
-In this configuration the total run time for each batch of 3 readers is 4 minutes.  With a GapInterval of 60 seconds each reader starts in the middle of the 120 runtime of the previously started reader, but there are only ever 2 concurrent readers retrieving data.
+In this configuration the total run time for each batch of 3 readers is 4 minutes.  With a GapInterval of 60 seconds each reader starts in the middle of the 120 second runtime of the previously started reader, but there are only ever 2 concurrent readers retrieving data.
 
 While one may overlapp the end of a batch with the beginning of the next batch, care must be taken to not overlap the timer schedule with the ExecutionSeconds to the degree that would cause either:
 1. more than 8 readers to run concurrently as Adobe's max is 8
