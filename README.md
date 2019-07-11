@@ -30,7 +30,7 @@ Azure components:
 * Azure KeyVault
   * All of the sensitive configuration values are stored in KeyVault
   * Create an Access Policy and give the Azure Function identity List and Get for Secrets
-  * The **KeyVaultSecretsProvision.sh** contains script to provision secrets, but you will need to add your KeyVault name and setting values
+  * The **KeyVaultSecretsProvision.sh** contains script to provision secrets, but you will need to add your KeyVault name and setting values and ensure that you are logged in.
   * Each of the secret URIs will be needed for the secrets in KeyVault
   
 
