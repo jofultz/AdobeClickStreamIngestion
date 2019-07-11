@@ -24,6 +24,10 @@ Azure components:
   * Use a Consumption Plan
   * Create an identity.  I used a System Managed identity.
 * Azure EventHub
+  * Single EventHub
+  ** This implementation assumes that a single EventHub will be sufficient to handle traffic
+  ** If multiple EventHubs are needed then some rework of the implementation will need to be done
+  * No partition key set
   * For testing I used 4 partitions
   * For production I used 12 partitions as 4 lead to throttling when both producers and consumers were active
   * The **EventHubName** and the **EventHubConnection** string will be needed
