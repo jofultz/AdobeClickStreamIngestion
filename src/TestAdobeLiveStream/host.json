@@ -1,0 +1,13 @@
+{
+  "version": "2.0",
+  "extensions": {
+    "cosmosDb": {},
+    "durableTask": {},
+    "eventHubs": {},
+    "http": {},
+    "queues": {},
+    "sendGrid": {},
+    "serviceBus": {},
+    "storage": {}
+  }
+}

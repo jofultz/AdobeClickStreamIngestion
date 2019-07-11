@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAdobeLiveStream", "TestAdobeLiveStream\TestAdobeLiveStream.csproj", "{F5EE171F-E548-47B9-B648-E6C57B893169}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5EE171F-E548-47B9-B648-E6C57B893169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5EE171F-E548-47B9-B648-E6C57B893169}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5EE171F-E548-47B9-B648-E6C57B893169}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5EE171F-E548-47B9-B648-E6C57B893169}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1354F4A9-7393-4A8F-B100-2F5AE4CC5564}
+	EndGlobalSection
+EndGlobal
