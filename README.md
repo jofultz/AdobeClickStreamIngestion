@@ -55,7 +55,7 @@ The run-time behavior of both Functions is determined by the following settings 
 |TimerSchedule|*cron expression*, e.g., "0 \*/4 \* \* \* \*"| Used by the Binder to control the firing of the **ClickStreamIngestController** Function.|
 |ExecutionSeconds| *duration in seconds, > 0*| Used by the **GetClickStreamData** Function to determine how long to fetch data from Adobe.|
 |MaxReaders| *number of readers, 0<MaxReaders<9*| Controls the number of messages populated on the queue to trigger acquistion Functions. This must be > 0 and Adobe allows no more than 8 concurrent readers.|
-|GapIntervalSeconds| *seconds visibility delay*| This controls the number of seconds before each subsequent message on the queue is visible.  The interval is multiplied by the message number with index origin of 0.|
+|GapIntervalSeconds| *seconds visibility delay*| Used to calculate the visibility expiry for each message on the queue to allow adjustments for staggering and overlapping of the reader trigger.  The interval is multiplied by the message count with index origin of 0.  A GapIntervalSeconds of 10 seconds would mean that for 3 messages the first message is visible in 0 seconds, the 2nd in 10 seconds, and the 3rd in 20 seconds.|
 
 ## Operational Notes
 ### High-Level Flow
