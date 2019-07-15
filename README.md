@@ -5,8 +5,8 @@ The Function App contains two Functions:
 
 |Function Name|File Location|Trigger Type|Description|
 | :--- | :--- | :--- | :--- | 
-|ClickStreamIngestController|ClickStreamIngestController.cs|Timer|Controls the ingestion Function by placing messages on the queue.|
-|GetClickStreamData|DataRetrieval.cs|Queue|Reads data from the Adobe LiveStream endpoint for the configured duration of time and sends the messages to an EventHub|
+|ClickStreamIngestController|[ClickStreamIngestController.cs](../master/src/TestAdobeLiveStream/ClickStreamIngestController.cs) |Timer|Controls the ingestion Function by placing messages on the queue.|
+|GetClickStreamData|[DataRetrieval.cs](../master/src/TestAdobeLiveStream/DataRetrieval.cs)|Queue|Reads data from the Adobe LiveStream endpoint for the configured duration of time and sends the messages to an EventHub|
 
 ## Dependencies and Setup
 ### Adobe Dependencies
@@ -22,7 +22,7 @@ Azure components:
 * Azure Function App
   * Use the previously configured Storage Account
   * Use a Consumption Plan
-  * Create an identity.  I used a System Managed identity.
+  * Create an identity.  I used a System-assigned Managed identity.
 * Azure EventHub
   * Single EventHub  
     * Assumes 1 EventHub be sufficient to handle traffic
@@ -55,7 +55,7 @@ The run-time behavior of both Functions is determined by the following settings 
 |TimerSchedule|*cron expression*, e.g., "0 \*/4 \* \* \* \*"| Used by the Binder to control the firing of the **ClickStreamIngestController** Function.|
 |ExecutionSeconds| *duration in seconds, > 0*| Used by the **GetClickStreamData** Function to determine how long to fetch data from Adobe.|
 |MaxReaders| *number of readers, 0<MaxReaders<9*| Controls the number of messages populated on the queue to trigger acquistion Functions. This must be > 0 and Adobe allows no more than 8 concurrent readers.|
-|GapIntervalSeconds| *seconds visibility delay*| This controls the number of seconds before each subsequent message on the queue is visible.  The interval is multiplied by the message number with index origin of 0.|
+|GapIntervalSeconds| *seconds visibility delay*| Used to calculate the visibility expiry for each message on the queue to allow adjustments for staggering and overlapping of the reader trigger.  The interval is multiplied by the message count with index origin of 0.  A GapIntervalSeconds of 10 seconds would mean that for 3 messages the first message is visible in 0 seconds, the 2nd in 10 seconds, and the 3rd in 20 seconds.|
 
 ## Operational Notes
 ### High-Level Flow
@@ -83,6 +83,8 @@ In this configuration the total run time for each batch of 3 readers is 4 minute
 While one may overlapp the end of a batch with the beginning of the next batch, care must be taken to not overlap the timer schedule with the ExecutionSeconds to the degree that would potentially cause:
 1. more than 8 readers to run concurrently as Adobe's max is 8
 2. spawn readers infinitely as the duration and gap interval does not allow for completion of the readers prior completing half of the next batch of readers.
+
+The intent of this implementation is to target a Consumption Plan.  Which means that the amount of RAM (1.5GB) is fairly low.  Each reader collects records in an ICollector\<EventHub\> during execution and it is persisted at the end of the excution duration by the Binder framework.  To that end, the goal for execution is to keep acquisition readers fairly short (1 - 5 minutes) as to not overrun the available RAM and to spawn them frequently enough as to keep the throughput high.
 
 ### Security Considerations
 The preference should be to use KeyVault instead of direct App Settings for all of the sensitve items.  In this implementation KeyVault was used.  Additionally, **SecureString** was used for all things kept in RAM.  For example, the auth token is retrieved and placed in a static variable.  This provides a level of caching for any instance running on the same host as that static variable will have the value.  However, a **SecureString** was used to ensure that memory could not be dumped and the string retrieved.  **NOTE** that there are some gaps in that the token is retrieved over HTTPS and must be parsed from the response.  Until the it is parsed, assigned to a **SecureString**, and the response object collected by GC it could be dumped from RAM.
