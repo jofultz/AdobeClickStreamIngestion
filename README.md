@@ -22,7 +22,7 @@ Azure components:
 * Azure Function App
   * Use the previously configured Storage Account
   * Use a Consumption Plan
-  * Create an identity.  I used a System Managed identity.
+  * Create an identity.  I used a System-assigned Managed identity.
 * Azure EventHub
   * Single EventHub  
     * Assumes 1 EventHub be sufficient to handle traffic
