@@ -10,7 +10,7 @@
         "ControlQueueName": "ingeststartqueue",
         "AdobeAppID": "@Microsoft.KeyVault(SecretUri=[your KeyVault secret URI])",
         "AdobeAppSecret": "@Microsoft.KeyVault(SecretUri=[your KeyVault secret URI])",
-        "AdobeURI": "@Microsoft.KeyVault(SecretUri=[your KeyVault secret URI])",
+        "AdobeURI": "@Microsoft.KeyVault(SecretUri=[your KeyVault secret URI] )",
         "TimerSchedule": "0 */4 * * * *",
         "ExecutionSeconds": 120,
         "MaxReaders": 3,
