@@ -84,5 +84,7 @@ While one may overlapp the end of a batch with the beginning of the next batch, 
 1. more than 8 readers to run concurrently as Adobe's max is 8
 2. spawn readers infinitely as the duration and gap interval does not allow for completion of the readers prior completing half of the next batch of readers.
 
+The intent of this implementation is to target a Consumption Plan.  Which means that the amount of RAM (1.5GB) is fairly low.  Each reader collects records in an ICollector<EventHub> during execution and it is persisted at the end of the excution duration by the Binder framework.  To that end, the goal for execution is to keep acquisition readers fairly short (1 - 5 minutes) as to not overrun the available RAM and to spawn them frequently enough as to keep the throughput high.
+
 ### Security Considerations
 The preference should be to use KeyVault instead of direct App Settings for all of the sensitve items.  In this implementation KeyVault was used.  Additionally, **SecureString** was used for all things kept in RAM.  For example, the auth token is retrieved and placed in a static variable.  This provides a level of caching for any instance running on the same host as that static variable will have the value.  However, a **SecureString** was used to ensure that memory could not be dumped and the string retrieved.  **NOTE** that there are some gaps in that the token is retrieved over HTTPS and must be parsed from the response.  Until the it is parsed, assigned to a **SecureString**, and the response object collected by GC it could be dumped from RAM.
