@@ -1,4 +1,4 @@
-# Adobe LiveStream Data Ingestion 
+# Adobe LiveStream Event Acquisition 
 > Using Azure Functions, EventHub, and KeyVault
 
 The Function App contains two Functions: 
