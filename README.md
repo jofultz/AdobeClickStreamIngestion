@@ -12,7 +12,7 @@ The Function App contains two Functions:
 ### Adobe Dependencies
 An endpoint must be setup by Adobe to retrieve the LiveStream data.  Along with that setup one should receive a specific App ID, App Secret, and URI which are all required to authenticate and fetch data.  
 ### Azure Dependencies
-In order to configure the application to run all of the dependencies must be configured.  While the Adobe configuration is more an output of a business interaction, the Azure dependencies require setup.  This will not provide detailed setup guidance for the dependencies.  An overview below of what is need is provided.
+The repo does not contain configuration scripts or templates for all of the dependencies.  However, the Function App (this code) requires all of them to be configured and available in order to run properly.  While the Adobe configuration is more an output of a business interaction, the Azure dependencies require setup.  This will not provide detailed setup guidance for the dependencies.  An overview below of what is need is provided.
 
 Azure components:
 * Azure Storage
